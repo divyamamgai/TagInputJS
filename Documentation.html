@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,width=device-width">
+    <title>TagInput.js</title>
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="TagInput.css">
+    <link rel="stylesheet" href="resources/css/main.css">
+    <script type="text/javascript" src="resources/js/jquery.slim.min.js"></script>
+    <script type="text/javascript" src="TagInput.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5 class="CreatedBy">Created By <b>Divya Mamgai</b></h5>
+            <h1>TagInput.js <span class="text-muted small">1.0</span></h1>
+            <h5 class="text-muted" style="margin-bottom: -1rem;">Documentation</h5>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <fieldset>
+                <legend>Demo</legend>
+                <div class="DemoContainer">
+                    <label for="Keywords">Keywords</label>
+                    <input id="Keywords" name="Keywords"
+                           type="text"
+                           data-TagInput
+                           data-Glue=","
+                           data-MinLength="1"
+                           data-MaxLength="16"
+                           data-LabelAnimationClass="Material"
+                           value="HTML,CSS">
+                    <div id="TagInputStatus">
+                        Event Status
+                    </div>
+                </div>
+                <h5>HTML Code</h5>
+                <pre>&lt;input id=&quot;Keywords&quot; name=&quot;Keywords&quot;
+                    type=&quot;text&quot;
+                    data-TagInput
+                    data-Glue=&quot;,&quot;
+                    data-MinLength=&quot;1&quot;
+                    data-MaxLength=&quot;16&quot;
+                    data-LabelAnimationClass=&quot;Material&quot;
+                    value=&quot;HTML,CSS&quot;&gt;</pre>
+                <h5>CSS Code</h5>
+                <pre>.TagInput label {
+    color: #888888;
+    transform-origin: 0 0 0;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.TagInput label.Material {
+    -webkit-transform: scale(0.8) translate3d(0, -1.7em, 0);
+    -moz-transform: scale(0.8) translate3d(0, -1.7em, 0);
+    -ms-transform: scale(0.8) translate3d(0, -1.7em, 0);
+    -o-transform: scale(0.8) translate3d(0, -1.7em, 0);
+    transform: scale(0.8) translate3d(0, -1.7em, 0);
+}</pre>
+                <i class="text-muted" style="float: right">
+                    <code>.TagInput label</code> is a required prefix for custom CSS style to properly
+                    override the defaults.
+                </i>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Options</legend>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                Option
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Default
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>TagInput</td>
+                            <td>
+                                A boolean attribute given to the <code>input</code> element which tells
+                                <b>TagInput.js</b>
+                                to automatically apply <b>$.fn.TagInput()</b> on the target element.
+                            </td>
+                            <td>
+                                <code>true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Glue</td>
+                            <td>
+                                A substring that is used to bind all the tags into a string which is assigned to the
+                                original input element which can be further processed by backend handling the form.
+                                <span class="text-muted">It cannot be <code>SPACE</code>.</span>
+                            </td>
+                            <td>
+                                <code>,</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RemoveIcon</td>
+                            <td>
+                                Class(es) which is(are) applied to a <code>span</code> element to act as Remove Tag
+                                Button.
+                            </td>
+                            <td>
+                                <code>glyphicon</code>
+                                <code>glyphicon-remove</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MinLength</td>
+                            <td>
+                                Minimum number <span class="text-muted">(>= 1)</span> of characters required for a valid
+                                Tag.
+                            </td>
+                            <td>
+                                <code>1</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>MaxLength</td>
+                            <td>
+                                Maximum number of characters a Tag can have.
+                            </td>
+                            <td>
+                                <code>No Limit</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>LabelAnimationClass</td>
+                            <td>
+                                A class which is added to the associated label when the <b>TagInput</b> is focused or is
+                                non empty.
+                            </td>
+                            <td>
+                                <code>Hide</code>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <i class="text-muted" style="float: right;margin-top: -1rem;">All the HTML element attributes are
+                    preceded by <code>data-</code> substring.</i>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Methods</legend>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                Method
+                            </th>
+                            <th>
+                                Parameter
+                            </th>
+                            <th>
+                                Return
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>ToString</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td>
+                                Returns a string formed by joining Tags with the <b>Glue</b>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>UpdateValue</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td>
+                                Updates the value of the <b>TagInput</b> element, i.e. it joins all <b>Tags</b> using
+                                <b>Glue</b>
+                                and assigns it to the <b>TagInput</b> element. Also it returns the updated value and
+                                fires the <code>TagInput:UpdateValue</code> event.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>AddTag</td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td>
+                                Adds a <b>Tag</b> with the text supplied and returns <code>true</code> if successful
+                                else <code>false</code>. If the text contains <b>Glue</b> then it is replaced by Space.
+                                It searches for a <b>Tag</b> with exact matching text, if found the <b>Tag</b> is not
+                                added.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>RemoveTag</td>
+                            <td>
+                                <code>jQuery</code>
+                                <br>
+                                [, <code>number</code> ]
+                            </td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                Removes the <b>Tag</b> specified by the jQuery object of that <b>Tag</b>. If the index
+                                of the <b>Tag</b> in the <b>TagArray</b> is available it can be passed as the second
+                                parameter, in that case it is not calculated again.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GetArray</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>array</code>
+                            </td>
+                            <td>
+                                Returns <b>TagArray</b> which is an array of <code>objects</code> with following
+                                properties :
+                                <ul>
+                                    <li><b>Text</b> : <code>string</code></li>
+                                    <li><b>$Tag</b> : <code>jQuery</code> (object of the target <b>Tag</b>)</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GetTextArray</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>array</code>
+                            </td>
+                            <td>
+                                Returns <b>Text</b> only array of all the <b>Tags</b>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GetTagCount</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td>
+                                Returns the number of <b>Tags</b>.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <i class="text-muted" style="float: right;margin-top: -1rem;">
+                    These functions are accessible through <code>$Input.data('TagInput')</code>. Also if you want to
+                    alter private functions they are accessible through <code>Private</code> property.
+                </i>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Events</legend>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                Event
+                            </th>
+                            <th>
+                                Extra Parameter
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>TagInput:UpdateValue</td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td>
+                                This event occurs when the <b>TagInput</b> element in blurred, i.e. each time the
+                                element is blurred, the <b>TagInput</b> <code>input</code> element (which is the same as
+                                the original element) is added a class <code>Hidden</code> and the value is updated by
+                                the <code>ToString()</code> method. This means while the <b>TagInput</b> element is
+                                focused the original <code>input</code> element value is made empty and
+                                class <code>Hidden</code> is removed. When blurred it holds the required joined value
+                                and the class <code>Hidden</code> is added. <code>Text</code> is an extra parameter.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TagInput:AddTag</td>
+                            <td>
+                                <code>array</code>,
+                                <code>jQuery</code>,
+                                <code>string</code>
+                            </td>
+                            <td>
+                                This event is fired when <code>AddTag()</code> method is called.
+                                <code>TagArray</code>, <code>$Tag</code> and <code>Text</code> are extra parameters,
+                                where <code>$Tag</code> is <code>jQuery</code> object of the <b>Tag</b> added and
+                                <code>Text</code> is it's title as <code>string</code>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TagInput:RemoveTag</td>
+                            <td>
+                                <code>array</code>,
+                                <code>string</code>
+                            </td>
+                            <td>
+                                This event is fired when <code>RemoveTag()</code> method is called.
+                                <code>TagArray</code> and <code>Text</code> are extra parameters.
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Dependencies</legend>
+                <h4>
+                    jQuery <span class="text-muted small">(>= 1.4)</span>
+                    <span class="text-muted small" style="float: right">jQuery 3.0 Ready (Slim Compatible)</span>
+                </h4>
+            </fieldset>
+            <hr>
+            <br>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var $TagInputStatus = $('#TagInputStatus', document);
+        $('input[data-TagInput]', document)
+                .on('TagInput:AddTag', function (event, TagArray, $Tag, Text) {
+                    $TagInputStatus.html('<b>TagInput:AddTag ::</b> Added <code>' + Text + '</code> Tag.');
+                })
+                .on('TagInput:RemoveTag', function (event, TagArray, Text) {
+                    $TagInputStatus.html('<b>TagInput:RemoveTag ::</b> Removed <code>' + Text + '</code> Tag.');
+                })
+                .on('TagInput:UpdateValue', function (event, Value) {
+                    $TagInputStatus.html('<b>TagInput:UpdateValue ::</b> Updated Value - <code>' + Value + '</code>');
+                });
+    });
+</script>
+</body>
+</html>

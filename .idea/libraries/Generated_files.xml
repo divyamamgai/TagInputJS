@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/TagInput.min.js" />
+        <item url="file://$PROJECT_DIR$/resources/js/jquery.min.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/resources/js/jquery-migrate-3.0.0.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/jquery.min.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/jquery-migrate-3.0.0.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/jquery.min.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/jquery.slim.min.min.js" />
+      <root url="file://$PROJECT_DIR$/TagInput.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/jquery.min.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
