@@ -122,7 +122,7 @@
                     for (var TagIndex = 0; TagIndex < TagCount; TagIndex++) {
                         $TagInput.after(HiddenInputDOMCache.clone().val(TagArray[TagIndex].Text));
                     }
-                    $TagInput.remove();
+                    $Element.attr('disabled', 'disabled');
                     return Name;
                 },
                 Private: undefined

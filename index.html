@@ -302,7 +302,7 @@
                             <td>
                                 Creates an array of hidden input based on the <b>Tags</b> with the name attribute as
                                 that of the original input element (with additional array sign; <code>[]</code>) and
-                                removes the <b>TagInput</b> element so that backend scripts can easily receive an array
+                                disables the original input element so that backend scripts can easily receive an array
                                 of all the <b>Tags</b>. This function is to be run before form is submitted using
                                 <code>onSubmit</code> event. It returns the name attribute given to hidden inputs.
                             </td>
@@ -394,7 +394,7 @@
                 event.stopPropagation();
                 event.preventDefault();
                 var Name = $.data($TagInputElement[0], 'TagInput').ConvertToHiddenInput();
-                $TagInputStatus.html('<b>Submitted ::</b> Converted <code>$TagInput</code> into array of hidden input (<code>name="' + Name + '"</code>) and removed <code>$TagInput</code>.');
+                $TagInputStatus.html('<b>Submitted ::</b> Converted <code>$TagInput</code> into array of hidden input (<code>name="' + Name + '"</code>) and disabled original input element.');
             });
         });
     })(jQuery);
