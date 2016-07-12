@@ -120,7 +120,7 @@
                         Name = $Element.attr('name') + '[]',
                         HiddenInputDOMCache = TagInputHiddenInputDOMCache.clone().attr('name', Name);
                     for (var TagIndex = 0; TagIndex < TagCount; TagIndex++) {
-                        $TagInput.after(HiddenInputDOMCache.clone().val(TagArray[TagIndex].Text));
+                        $TagInput.before(HiddenInputDOMCache.clone().val(TagArray[TagIndex].Text));
                     }
                     $Element.attr('disabled', 'disabled');
                     return Name;
