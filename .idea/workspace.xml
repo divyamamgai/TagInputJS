@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea2a59ff-6d8b-4a80-8460-e32fb402ec6f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TagInput.css" afterPath="$PROJECT_DIR$/TagInput.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TagInput.js" afterPath="$PROJECT_DIR$/TagInput.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TagInput.min.css" afterPath="$PROJECT_DIR$/TagInput.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TagInput.min.js" afterPath="$PROJECT_DIR$/TagInput.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.css" afterPath="$PROJECT_DIR$/resources/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/main.min.css" afterPath="$PROJECT_DIR$/resources/css/main.min.css" />
     </list>
     <ignored path="TagInput.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,8 +57,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="240">
-                <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+              <first_editor relative-caret-position="112">
+                <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -80,8 +72,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="375" column="23" selection-start-line="375" selection-start-column="23" selection-end-line="375" selection-end-column="23" />
+            <state relative-caret-position="672">
+              <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#form#0;n#div#0;n#fieldset#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -118,11 +110,11 @@
         <option value="/HTML Fragment (TagInput.js:402).html" />
         <option value="/HTML Fragment (TagInput.js:456).html" />
         <option value="$PROJECT_DIR$/resources/js/jquery.min.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="/HTML Fragment (TagInput.js:1319).html" />
         <option value="$PROJECT_DIR$/TagInput.js" />
         <option value="$PROJECT_DIR$/TagInput.css" />
         <option value="$PROJECT_DIR$/resources/css/main.css" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -247,12 +239,12 @@
       <workItem from="1467553086245" duration="4153000" />
       <workItem from="1467567271269" duration="8492000" />
       <workItem from="1467607800313" duration="5220000" />
-      <workItem from="1468254879291" duration="9440000" />
+      <workItem from="1468254879291" duration="9633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56268000" />
+    <option name="totallyTimeSpent" value="56461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -794,26 +786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="49" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="240">
-            <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TagInput.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -856,10 +828,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="3" column="49" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="112">
+            <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="375" column="23" selection-start-line="375" selection-start-column="23" selection-end-line="375" selection-end-column="23" />
+        <state relative-caret-position="672">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
           <folding>
             <element signature="n#style#0;n#i#0;n#form#0;n#div#0;n#fieldset#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
