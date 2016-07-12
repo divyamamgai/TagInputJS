@@ -87,14 +87,22 @@
                     }
                     return false;
                 },
+                /**
+                 * @return {boolean}
+                 */
                 RemoveTag: function ($tag, index) {
                     // We subtract 1 because label element takes up 1 index.
-                    index = index || ($tag.index() - 1);
-                    var Text = TagArray[index].Text;
-                    TagArray.splice(index, 1);
-                    $tag.remove();
-                    PublicPrototype.UpdateValue();
-                    $Element.trigger('TagInput:RemoveTag', [TagArray, Text]);
+                    var TagIndex = index || ($tag.index() - 1),
+                        TagObject = TagArray[TagIndex];
+                    if (TagObject !== undefined) {
+                        var Text = TagObject.Text;
+                        TagObject.$Tag.remove();
+                        TagArray.splice(TagIndex, 1);
+                        PublicPrototype.UpdateValue();
+                        $Element.trigger('TagInput:RemoveTag', [TagArray, Text]);
+                        return true;
+                    }
+                    return false;
                 },
                 GetArray: function () {
                     return TagArray;
@@ -124,6 +132,17 @@
                     }
                     $Element.attr('disabled', 'disabled');
                     return Name;
+                },
+                Reset: function () {
+                    var TagCount = TagArray.length;
+                    for (var TagIndex = 0; TagIndex < TagCount; TagIndex++) {
+                        TagArray[TagIndex].$Tag.remove();
+                    }
+                    TagArray = [];
+                    $Element.val('');
+                    $TagInputText.val('');
+                    $TagInputLabel.removeClass(Options.LabelAnimationClass);
+                    return PublicPrototype;
                 },
                 Private: undefined
             },

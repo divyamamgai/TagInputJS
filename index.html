@@ -242,12 +242,13 @@
                                 [, <code>number</code> ]
                             </td>
                             <td>
-                                <code>null</code>
+                                <code>boolean</code>
                             </td>
                             <td>
                                 Removes the <b>Tag</b> specified by the jQuery object of that <b>Tag</b>. If the index
                                 of the <b>Tag</b> in the <b>TagArray</b> is available it can be passed as the second
-                                parameter, in that case it is not calculated again.
+                                parameter, in that case it is not calculated using the element provided. It returns
+                                <code>true</code> on success and <code>false</code> on failure.
                             </td>
                         </tr>
                         <tr>
@@ -305,6 +306,18 @@
                                 disables the original input element so that backend scripts can easily receive an array
                                 of all the <b>Tags</b>. This function is to be run before form is submitted using
                                 <code>onSubmit</code> event. It returns the name attribute given to hidden inputs.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Reset</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>TagInput</code>
+                            </td>
+                            <td>
+                                Clears the <b>TagInput</b> element completely for the next time input.
                             </td>
                         </tr>
                         </tbody>
@@ -393,8 +406,10 @@
             $('form').on('submit', function (event) {
                 event.stopPropagation();
                 event.preventDefault();
-                var Name = $.data($TagInputElement[0], 'TagInput').ConvertToHiddenInput();
-                $TagInputStatus.html('<b>Submitted ::</b> Converted <code>$TagInput</code> into array of hidden input (<code>name="' + Name + '"</code>) and disabled original input element.');
+                var KeywordsTagInput = $.data($TagInputElement[0], 'TagInput'),
+                        Name = KeywordsTagInput.ConvertToHiddenInput();
+                KeywordsTagInput.Reset();
+                $TagInputStatus.html('<b>Submitted ::</b> Converted <code>$TagInput</code> into array of hidden input (<code>name="' + Name + '"</code>) and disabled original input element. Called <code>TagInput.Reset()</code> to clear the field.');
             });
         });
     })(jQuery);
