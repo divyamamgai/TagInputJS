@@ -1,32 +1,46 @@
 /*
  Author : Divya Mamgai
  TagInput.js
- Version : 1.0
+ Version : 1.1
  2016
  */
-(function ($, w, wO, d) {
-    // For IE Support.
-    if (('find' in Array.prototype) === false) {
-        Array.prototype.find = function (filterFunction, testValue) {
-            var This = this,
-                Length = This.length;
-            if (Length > 0) {
-                for (var Index = 0; Index < Length; Index++) {
-                    if (filterFunction.apply(testValue, [This[Index]]) === true)
-                        return This[Index];
+;(function ($, w, wO, d) {
+    /*
+     For IE Support Array.find polyFill
+     Source - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/find#Polyfill
+     */
+    if (!Array.prototype.find) {
+        Array.prototype.find = function (predicate) {
+            if (this == null) {
+                throw new TypeError('Array.prototype.find called on null or undefined');
+            }
+            if (typeof predicate !== 'function') {
+                throw new TypeError('predicate must be a function');
+            }
+            var list = Object(this),
+                length = list.length >>> 0,
+                thisArg = arguments[1],
+                value;
+
+            for (var i = 0; i < length; i++) {
+                value = list[i];
+                if (predicate.call(thisArg, value, i, list)) {
+                    return value;
                 }
             }
             return undefined;
-        }
+        };
     }
+    var TagInputTagItemDOMCache = $('<div class="TagItem Hide"><span class="TagText"></span><span class="RemoveTag"></span></div>'),
+        TagInputHiddenInputDOMCache = $('<input type="hidden">');
     w.TagInput = function (element) {
         var $Element = $(element),
-            ID = $Element.attr('id') || (new Date()),
-            $TagInput = $("<div class=\"TagInput\"></div>").insertAfter($Element),
+            ID = $Element.attr('id') || Math.round(Math.random() * 1e9),
+            $TagInput = $("<div class=\"TagInput\">\n    <input type=\"text\" class=\"TagInputText\">\n</div>").insertAfter($Element),
             $TagInputLabel = $('label[for=' + ID + ']', d),
+            $TagInputText = $TagInput.find('.TagInputText'),
             Options = {},
             GlueReplaceRegex,
-            FontSize,
             TagArray = [],
             PublicPrototype = {
                 /**
@@ -44,7 +58,6 @@
                 UpdateValue: function () {
                     var Value = PublicPrototype.ToString();
                     $Element.val(Value);
-                    $Element.trigger('TagInput:UpdateValue', [Value]);
                     return Value;
                 },
                 /**
@@ -55,17 +68,18 @@
                         var Text = $.trim(text.replace(GlueReplaceRegex, ' '));
                         if (Text.length >= Options.MinLength) {
                             if (TagArray.find(PrivatePrototype.FindTag, Text) === undefined) {
-                                var $Tag = $('<div class="TagItem Hide">' + Text + '<span class="' + Options.RemoveIcon + ' RemoveTag"></span></div>');
+                                var $Tag = TagInputTagItemDOMCache.clone();
+                                $Tag.find('.TagText').html(Text);
+                                $Tag.find('.RemoveTag').addClass(Options.RemoveIcon);
                                 TagArray.push({
                                     Text: Text,
                                     $Tag: $Tag
                                 });
-                                $Element.before($Tag);
-                                // Making it async so that we don't remove the Hide class as we create it, since we
-                                // need it to animate.
+                                $TagInputText.before($Tag);
                                 setTimeout(function () {
                                     $Tag.removeClass('Hide');
                                 }, 21);
+                                PublicPrototype.UpdateValue();
                                 $Element.trigger('TagInput:AddTag', [TagArray, $Tag, Text]);
                                 return true;
                             }
@@ -79,6 +93,7 @@
                     var Text = TagArray[index].Text;
                     TagArray.splice(index, 1);
                     $tag.remove();
+                    PublicPrototype.UpdateValue();
                     $Element.trigger('TagInput:RemoveTag', [TagArray, Text]);
                 },
                 GetArray: function () {
@@ -97,6 +112,19 @@
                 GetTagCount: function () {
                     return TagArray.length;
                 },
+                /**
+                 * @return {string}
+                 */
+                ConvertToHiddenInput: function () {
+                    var TagCount = TagArray.length,
+                        Name = $Element.attr('name') + '[]',
+                        HiddenInputDOMCache = TagInputHiddenInputDOMCache.clone().attr('name', Name);
+                    for (var TagIndex = 0; TagIndex < TagCount; TagIndex++) {
+                        $TagInput.after(HiddenInputDOMCache.clone().val(TagArray[TagIndex].Text));
+                    }
+                    $TagInput.remove();
+                    return Name;
+                },
                 Private: undefined
             },
             PrivatePrototype = {
@@ -107,18 +135,14 @@
                     // Can't do === since this has String object whereas tagObject.Text is a primitive string value.
                     return tagObject.Text == this;
                 },
-                SetElementWidth: function () {
-                    var Length = $Element.val().length + 1;
-                    $Element.css('width', FontSize * Length);
-                },
                 TagInputOnClick: function () {
-                    $Element.focus();
+                    $TagInputText.focus();
                 },
                 TagInputOnMouseEnter: function () {
                     $TagInput.addClass('Focus');
                 },
                 TagInputOnMouseLeave: function () {
-                    if ($Element.is(':focus') === false) {
+                    if ($TagInputText.is(':focus') === false) {
                         if (TagArray.length === 0) $TagInputLabel.removeClass(Options.LabelAnimationClass);
                         $TagInput.removeClass('Focus');
                     }
@@ -132,53 +156,41 @@
                 TagItemOnClick: function (event) {
                     event.stopPropagation();
                     event.preventDefault();
-                    if ($Element.val().length === 0) {
+                    if ($TagInputText.val().length === 0) {
                         var $Tag = $(this),
-                            TagIndex = $Tag.index() - 1;
-                        $Element.val(TagArray[TagIndex].Text).focus();
+                            TagIndex = $Tag.index() - 1,
+                            Text = TagArray[TagIndex].Text;
+                        $TagInputText.val(Text).focus();
                         PublicPrototype.RemoveTag($Tag, TagIndex);
                     }
                 },
-                ElementOnFocus: function () {
-                    if (TagArray.length === 0) $TagInputLabel.addClass(Options.LabelAnimationClass);
+                TagInputTextOnFocus: function () {
+                    if (TagArray.length === 0 && $TagInputText.val().length === 0) $TagInputLabel.addClass(Options.LabelAnimationClass);
                     $TagInput.addClass('Focus');
-                    // Add length restriction and empty the field.
-                    $Element.val('').attr({
-                        minlength: Options.MinLength,
-                        maxlength: Options.MaxLength
-                    }).removeClass('Hidden');
                 },
-                ElementOnBlur: function () {
-                    if (TagArray.length === 0) $TagInputLabel.removeClass(Options.LabelAnimationClass);
+                TagInputTextOnBlur: function () {
+                    if (TagArray.length === 0 && $TagInputText.val().length === 0) $TagInputLabel.removeClass(Options.LabelAnimationClass);
                     $TagInput.removeClass('Focus');
-                    // Remove length restriction.
-                    $Element.addClass('Hidden').attr({
-                        minlength: 0,
-                        // Default Value - http://www.w3schools.com/tags/att_input_maxlength.asp
-                        maxlength: 524288
-                    });
-                    PublicPrototype.UpdateValue();
                 },
-                ElementOnKeyDown: function (event) {
+                TagInputTextOnKeyDown: function (event) {
                     if (event.keyCode === 13) {
                         event.stopPropagation();
                         event.preventDefault();
-                        if (PublicPrototype.AddTag($Element.val()) === true) {
-                            $Element.val('');
+                        if (PublicPrototype.AddTag($TagInputText.val()) === true) {
+                            $TagInputText.val('');
                         }
                     } else if (event.keyCode === 8) {
                         if (TagArray.length > 0) {
-                            if ($Element.val().length === 0)
-                                PublicPrototype.RemoveTag($Element.prev());
+                            if ($TagInputText.val().length === 0)
+                                PublicPrototype.RemoveTag($TagInputText.prev());
                         }
                     } else if (event.key === Options.Glue) {
                         event.stopPropagation();
                         event.preventDefault();
                     }
-                    PrivatePrototype.SetElementWidth();
                 },
                 ElementValidation: function () {
-                    $Element.val(String($Element.val()).replace(GlueReplaceRegex, ' '));
+                    $TagInput.val(String($TagInput.val()).replace(GlueReplaceRegex, ' '));
                 },
                 ProcessValue: function () {
                     var ElementValue = $Element.val(),
@@ -200,7 +212,6 @@
                         RemoveIcon: $Element.attr('data-RemoveIcon') || 'glyphicon glyphicon-remove',
                         LabelAnimationClass: $Element.attr('data-LabelAnimationClass') || 'Hide'
                     };
-                    FontSize = parseInt($Element.css('font-size'));
                     // Options.MinLength has to be >= 1 semantically.
                     if (Options.MinLength <= 0) Options.MinLength = 1;
                     // Options.Glue cannot be Space, this is because we replace the Options.Glue character by space
@@ -219,14 +230,25 @@
                         .on('mouseleave', PrivatePrototype.TagInputOnMouseLeave)
                         .on('click', '.RemoveTag', PrivatePrototype.RemoveTagOnClick)
                         .on('click', '.TagItem', PrivatePrototype.TagItemOnClick);
-                    $Element
-                        .appendTo($TagInput)
-                        .on('focus', PrivatePrototype.ElementOnFocus)
-                        .on('blur', PrivatePrototype.ElementOnBlur)
-                        .on('keydown', PrivatePrototype.ElementOnKeyDown)
+                    $TagInputText
+                        .attr({
+                            minlength: Options.MinLength,
+                            maxlength: Options.MaxLength
+                        })
+                        .on('focus', PrivatePrototype.TagInputTextOnFocus)
+                        .on('blur', PrivatePrototype.TagInputTextOnBlur)
+                        .on('keydown', PrivatePrototype.TagInputTextOnKeyDown)
                         .on('input', PrivatePrototype.ElementValidation)
-                        .on('change', PrivatePrototype.ElementValidation)
-                        .addClass('Hidden');
+                        .on('change', PrivatePrototype.ElementValidation);
+                    $Element
+                        .attr('tabindex', -1)
+                        .addClass('TagInputElement')
+                        .on('focus', function (event) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                            $TagInputText.focus();
+                        })
+                        .appendTo($TagInput);
                     PrivatePrototype.ProcessValue();
                 }
             };

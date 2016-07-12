@@ -5,15 +5,17 @@ html, body {
     font-family: Lato, sans-serif;
 }
 
-.CreatedBy {
+.Info {
+    text-align: right;
     float: right;
     margin: 2rem 1rem 0 0;
     display: inline-block;
+    font-size: 1.2rem;
 }
 
 .DemoContainer {
     font-size: 1.6rem;
-    padding: 2rem 0 2rem 0;
+    padding: 1rem 0 2rem 0;
 }
 
 #TagInputStatus {

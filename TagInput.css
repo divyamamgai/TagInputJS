@@ -1,4 +1,5 @@
 .TagInput {
+    position: relative;
     font-size: 1em;
     padding: 0.2em 0.2em 0.4em 0.2em;
     border-bottom: solid 0.2em #bfbfbf;
@@ -19,13 +20,13 @@
 }
 
 .TagInput label {
+    display: block;
+    position: relative;
+    margin: 0 0 -1.8em -0.1em;
+    padding: 0.2em;
     font-size: 1em;
     font-weight: 400;
-    display: inline-block;
     color: #bfbfbf;
-    padding: 0.2em;
-    margin: 0;
-    position: absolute;
     opacity: 1;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -48,23 +49,42 @@
     transform: scale(0.7);
 }
 
-.TagInput input {
-    display: inline-block;
+.TagInput .TagInputElement {
+    display: block;
     width: 1px;
+    height: 1px;
     border: none;
-    padding: 0.1em 0 0 0;
+    background: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    overflow: hidden;
+    outline: none;
+    position: absolute;
+    bottom: -0.2em;
+    left: 1em;
+}
+
+.TagInput .TagInputText {
+    position: relative;
+    top: 0.1em;
+    display: inline-block;
+    width: auto;
+    padding: 0.1em 0 0.1em 0;
+    border: none;
+    background: none;
     margin: 0;
     font-size: 1em;
-    line-height: 1.6;
     outline: none;
 }
 
 .TagInput .TagItem {
+    position: relative;
+    top: 0.1em;
     display: inline-block;
-    padding: 0 0.8em 0 0.8em;
+    padding: 0.2em 0.8em 0.2em 0.8em;
     margin: 0 0.4em 0 0;
     font-size: 0.8em;
-    line-height: 1.6em;
     background-color: #fafafa;
     border: solid 0.1em #e1e1e1;
     -webkit-border-radius: 1em;
@@ -102,7 +122,7 @@
 }
 
 .TagInput .TagItem .RemoveTag {
-    margin: 0 0 0 0.4em;
+    margin: 0.2em 0 0 0.4em;
     color: #bfbfbf;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
@@ -113,8 +133,4 @@
 
 .TagInput .TagItem .RemoveTag:hover {
     color: #EF5350;
-}
-
-.TagInput .Hidden {
-    opacity: 0;
 }

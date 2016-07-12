@@ -14,8 +14,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h5 class="CreatedBy">Created By <b>Divya Mamgai</b></h5>
-            <h1>TagInput.js <span class="text-muted small">1.0</span></h1>
+            <div class="Info">
+                <h5>Created By <b>Divya Mamgai</b></h5>
+                <a class="Repo" href="https://github.com/divyamamgai/TagInputJS">GitHub Repo</a>
+                <br>
+                <a href="https://github.com/divyamamgai/TagInputJS/blob/gh-pages/LICENSE">Licensed under MIT</a>
+            </div>
+            <h1>TagInput.js <span class="text-muted small">1.1</span></h1>
             <h5 class="text-muted" style="margin-bottom: -1rem;">Documentation</h5>
             <hr>
         </div>
@@ -25,28 +30,38 @@
             <fieldset>
                 <legend>Demo</legend>
                 <div class="DemoContainer">
-                    <label for="Keywords">Keywords</label>
-                    <input id="Keywords" name="Keywords"
-                           type="text"
-                           data-TagInput
-                           data-Glue=","
-                           data-MinLength="1"
-                           data-MaxLength="16"
-                           data-LabelAnimationClass="Material"
-                           value="HTML,CSS">
-                    <div id="TagInputStatus">
-                        Event Status
-                    </div>
+                    <form>
+                        <label for="Keywords">Keywords</label>
+                        <input id="Keywords" name="Keywords"
+                               type="text"
+                               data-TagInput
+                               data-Glue=","
+                               data-MinLength="1"
+                               data-MaxLength="16"
+                               data-LabelAnimationClass="Material"
+                               value="HTML,CSS"
+                               required>
+                        <div id="TagInputStatus">
+                            Event Status
+                        </div>
+                        <br>
+                        <input type="submit" class="btn btn-default">
+                        <i class="text-muted small" style="margin-left: 1em;">
+                            Try submitting (when it's empty) in a HTML5 browser and see the support of HTML5 browser
+                            validation working!
+                        </i>
+                    </form>
                 </div>
                 <h5>HTML Code</h5>
                 <pre>&lt;input id=&quot;Keywords&quot; name=&quot;Keywords&quot;
-                    type=&quot;text&quot;
-                    data-TagInput
-                    data-Glue=&quot;,&quot;
-                    data-MinLength=&quot;1&quot;
-                    data-MaxLength=&quot;16&quot;
-                    data-LabelAnimationClass=&quot;Material&quot;
-                    value=&quot;HTML,CSS&quot;&gt;</pre>
+       type=&quot;text&quot;
+       data-TagInput
+       data-Glue=&quot;,&quot;
+       data-MinLength=&quot;1&quot;
+       data-MaxLength=&quot;16&quot;
+       data-LabelAnimationClass=&quot;Material&quot;
+       value=&quot;HTML,CSS&quot;
+       required&gt;</pre>
                 <h5>CSS Code</h5>
                 <pre>.TagInput label {
     color: #888888;
@@ -201,9 +216,7 @@
                             </td>
                             <td>
                                 Updates the value of the <b>TagInput</b> element, i.e. it joins all <b>Tags</b> using
-                                <b>Glue</b>
-                                and assigns it to the <b>TagInput</b> element. Also it returns the updated value and
-                                fires the <code>TagInput:UpdateValue</code> event.
+                                <b>Glue</b> and assigns it to the <b>TagInput</b> element. It returns the updated value.
                             </td>
                         </tr>
                         <tr>
@@ -278,6 +291,22 @@
                                 Returns the number of <b>Tags</b>.
                             </td>
                         </tr>
+                        <tr>
+                            <td>ConvertToHiddenInput</td>
+                            <td>
+                                <code>null</code>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td>
+                                Creates an array of hidden input based on the <b>Tags</b> with the name attribute as
+                                that of the original input element (with additional array sign; <code>[]</code>) and
+                                removes the <b>TagInput</b> element so that backend scripts can easily receive an array
+                                of all the <b>Tags</b>. This function is to be run before form is submitted using
+                                <code>onSubmit</code> event. It returns the name attribute given to hidden inputs.
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -306,21 +335,6 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>TagInput:UpdateValue</td>
-                            <td>
-                                <code>string</code>
-                            </td>
-                            <td>
-                                This event occurs when the <b>TagInput</b> element in blurred, i.e. each time the
-                                element is blurred, the <b>TagInput</b> <code>input</code> element (which is the same as
-                                the original element) is added a class <code>Hidden</code> and the value is updated by
-                                the <code>ToString()</code> method. This means while the <b>TagInput</b> element is
-                                focused the original <code>input</code> element value is made empty and
-                                class <code>Hidden</code> is removed. When blurred it holds the required joined value
-                                and the class <code>Hidden</code> is added. <code>Text</code> is an extra parameter.
-                            </td>
-                        </tr>
-                        <tr>
                             <td>TagInput:AddTag</td>
                             <td>
                                 <code>array</code>,
@@ -348,6 +362,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="alert alert-danger">
+                    <code>TagInput:UpdateValue</code> event is removed in <code>1.1</code>.
+                </div>
             </fieldset>
             <br>
             <fieldset>
@@ -363,19 +380,24 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        var $TagInputStatus = $('#TagInputStatus', document);
-        $('input[data-TagInput]', document)
-                .on('TagInput:AddTag', function (event, TagArray, $Tag, Text) {
-                    $TagInputStatus.html('<b>TagInput:AddTag ::</b> Added <code>' + Text + '</code> Tag.');
-                })
-                .on('TagInput:RemoveTag', function (event, TagArray, Text) {
-                    $TagInputStatus.html('<b>TagInput:RemoveTag ::</b> Removed <code>' + Text + '</code> Tag.');
-                })
-                .on('TagInput:UpdateValue', function (event, Value) {
-                    $TagInputStatus.html('<b>TagInput:UpdateValue ::</b> Updated Value - <code>' + Value + '</code>');
-                });
-    });
+    (function ($) {
+        $(function () {
+            var $TagInputStatus = $('#TagInputStatus', document),
+                    $TagInputElement = $('input[data-TagInput]', document)
+                            .on('TagInput:AddTag', function (event, TagArray, $Tag, Text) {
+                                $TagInputStatus.html('<b>TagInput:AddTag ::</b> Added <code>' + Text + '</code> Tag.');
+                            })
+                            .on('TagInput:RemoveTag', function (event, TagArray, Text) {
+                                $TagInputStatus.html('<b>TagInput:RemoveTag ::</b> Removed <code>' + Text + '</code> Tag.');
+                            });
+            $('form').on('submit', function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+                var Name = $.data($TagInputElement[0], 'TagInput').ConvertToHiddenInput();
+                $TagInputStatus.html('<b>Submitted ::</b> Converted <code>$TagInput</code> into array of hidden input (<code>name="' + Name + '"</code>) and removed <code>$TagInput</code>.');
+            });
+        });
+    })(jQuery);
 </script>
 </body>
 </html>
